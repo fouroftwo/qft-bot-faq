@@ -1,0 +1,14 @@
+{
+  "name": "qft_bot",
+  "description": "QuickFingersTraders own bot",
+  "version": "1.0.0",
+  "engines": {
+    "node": "6.11.3"
+  },
+  "dependencies": {
+    "@slack/client": "^3.14.2"
+  },
+  "scripts": {
+    "start": "node slackbot.js"
+  }
+}
