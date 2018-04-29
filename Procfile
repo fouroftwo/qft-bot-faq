@@ -1,1 +1,1 @@
-worker: node slackbot.js
+worker: node qft-bot-faq.js

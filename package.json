@@ -1,12 +1,13 @@
 {
-  "name": "qft_bot",
-  "description": "QuickFingersTraders own bot",
+  "name": "qft_bot_delisted",
+  "description": "QFL delisted bot",
   "version": "1.0.0",
   "engines": {
     "node": "6.11.3"
   },
   "dependencies": {
-    "@slack/client": "^3.14.2"
+    "@slack/client": "^3.14.2",
+    "sqlite3": "^4.0.0"
   },
   "scripts": {
     "start": "node slackbot.js"

@@ -9,15 +9,16 @@
     "rules": {
       "enabled": true,
       "description": "Most if not all channels have a set of rules. Check each channel topic for the most up to date rules, but still refer to the ones shown here as close to the real deal as possible",
-      "!broken_bases_rules": "#broken_bases\n\nA channel that is designed to help guide people through the trading process.\nIn this channel we share our ideas with the community to gain feedback from our peers about our proposed trade entrances and exits.\n\nPlease be respectful in your responses, there are no bad questions here. Our goal is to help one another to become stronger traders.\n\nAll posts in #broken_bases must contain a chart with a line that is drawn to show the base, and the initial post should comply with this format: `\"BTRX: LTC/BTC  with the base at @ .0147\"`\n\n*Charts should*\n* Display _1 hour_ candlesticks\n* Show a time frame of at least _1 month or more_\n* The base should be _drawn in_ to help your fellow community members critique your suggestions.\n\nWe also ask that you discuss your suggested \"safe circle\" entrance zone, and exit if it is relevant to the discussion.\n\nPlease do not create posts in this channel unless the base has been cracked _and_ we are at least 1/2 way to the trade entry point.\n\nOptional: You may choose to rate the proposed trade using the :good_base: emoticon.",
-      "!general_rules": "#general\n\n*DO NOT*\n* POST CHARTS\n* DISCUSS STRATEGY FOR A SPECIFIC ALT COIN\n* UPLOAD IMAGES\n* FLOOD\n\nOne message per thought please & always respond in threads.\n\nMessages that do not comply will be deleted! :cop: :oncoming_police_car:",
-      "!is_this_a_base_rules": "#is_this_a_base\n\nWhen in doubt if a base is a _BASE_\n* Include your base in the chart\n* Post *links* to the chart here\n* Make sure the chart shows at least _2 MONTHS_ of data",
-      "!news_rules": "#news\n\nFresh news about Cryptos\n\nWhen posting, make sure\n* It's not a repost\n* Has value and credibility\n* Is not several weeks old\n\nLuc's and OneLuckyFlip's link to new blogs will be posted here!",
-      "!pullback_trading_rules": "#pullback_trading\n\nAnalyzing and informing about pull back opportunities on volatile coins.\n\nPlease inform the community about the\n* Coin\n* Volume\n* Exchange\n* Rise and duration\n\nThen post links or pictures threaded below your comment\n\n*PLEASE READ THE PINNED GUIDE!*",
-      "!random_rules": "#rand....\n\nC'mon. It's _random_. There are no rules. Except being decent. Please, be decent at least.",
-      "!scanner_alerts_btc_rules": "#scanner_alerts_btc\n\nTHIS IS A BOT ONLY CHANNEL!\nPLEASE DO NOT POST IN THIS CHANNEL!\nALL COMMENTS AND POSTS WILL BE DELETED TO KEEP THIS CHANNEL CLEAN!\nIF YOU HAVE QUESTIONS ABOUT THE BOT, PLEASE USE #general OR #random!\n\nTHANKS!\n\nAND LASTLY, PLEASE REFRAIN FOM POSTING IN THIS CHANNEL!",
-      "!tech_support_rules": "#tech_support\n\nPlease post *ANYTHING* related to slack, taxes, trading platforms, exchanges, trading tools, security questions or anything else software/hardware related in #tech_support.  See channel description of #tech_support for further details. :tech_support:",
-      "!trade_review_rules": "#trade_review\n\nShare your position trade entry and exit points to get community feedback."
+      "!broken_bases_rules": "#broken_bases\nA channel that is designed to help guide people through the trading process.\nIn this channel we share our ideas with the community to gain feedback from our peers about our proposed trade entrances and exits.\n\nPlease be respectful in your responses, there are no bad questions here. Our goal is to help one another to become stronger traders.\n\nAll posts in #broken_bases must contain a chart with a line that is drawn to show the base, and the initial post should comply with this format: `\"BTRX: LTC/BTC  with the base at @ .0147\"`\n\n*Charts should*\n* Display _1 hour_ candlesticks\n* Show a time frame of at least _1 month or more_\n* The base should be _drawn in_ to help your fellow community members critique your suggestions.\n\nWe also ask that you discuss your suggested \"safe circle\" entrance zone, and exit if it is relevant to the discussion.\n\nPlease do not create posts in this channel unless the base has been cracked _and_ we are at least 1/2 way to the trade entry point.\n\nOptional: You may choose to rate the proposed trade using the :good_base: emoticon.",
+      "!general_rules": "#general\nDO NOT: SPAM #general, or post CHARTS, or DISCUSS any coins other than BTC and ETH, or post IMAGES in the channel. Use #random and #tech_support. One message per thought & always respond in threads. :cop: :oncoming_police_car:",
+      "!is_this_a_base_rules": "#is_this_a_base\nIf in doubt that a base is a BASE, Draw your base in the chart and link the chart it in the channel. Please show at least 2 MONTHS of data on your chart, so that your peers can assess your bases.",
+      "!news_rules": "#news\nFresh news about Crypto. Make sure it’s not a repost, has value and credibility and is not several weeks old. Please use the direct link if available and avoid posting facebook or twitter links if possible. Luc’s new blogs will also be posted here.",
+      "!pullback_trading_rules": "#pullback_trading\nAnalyzing and informing pull back opportunities on volatile coins. Use @hobbelbobbel for direct links by posting in the following pattern “ETH Binance”. PLEASE READ THE PINNED GUIDE BEFORE TRADING PULLBACKS!",
+      "!random_rules": "#random\nAlt-Coin discussions, non-work banter and water cooler conversation. Reminder: TA and ICO topics are not permitted here, or in any other channel on this Slack.",
+      "!scanner_alerts_btc_rules": "#scanner_alerts_btc\nTHIS IS A BOT ONLY CHANNEL!\nPLEASE DO NOT POST IN THIS CHANNEL!\nALL COMMENTS AND POSTS WILL BE DELETED TO KEEP THIS CHANNEL CLEAN!\nIF YOU HAVE QUESTIONS ABOUT THE BOT, PLEASE USE #general OR #random!\n\nTHANKS!\n\nAND LASTLY, PLEASE REFRAIN FOM POSTING IN THIS CHANNEL!",
+      "!tech_support_rules": "#tech_support\nChannel to discuss issues or question with slack, taxes, trading platforms or exchanges, trading tools, security, VPN or anything else software/hardware related. Normal rules still apply, DO NOT upload images, and please ALWAYS use threads.",
+      "!trade_review_rules": "#trade_review\nShare your trade entry and exit points to get community feedback.",
+      "!daytrading_rules": "#daytrading\nBuying below bases in shorter intervals. Stay small and agile. Don’t go all in and always prepare for bigger drops. Use @hobbelbobbel for direct links by posting in the following pattern “ETH Binance”."
     },
     "general": {
       "enabled": true,
@@ -61,6 +62,114 @@
       "!luc_blog": "Luc's Steemit Blog - https://steemit.com/@quickfingersluc",
       "!luc_method": "Google Doc of Luc's Method (QFLM) by ImAlive - https://docs.google.com/document/d/13iqxT63UqdkbTMmt6VRMlWPL7hb5bp5sk6IqkQhBm8M/edit",
       "!luc_youtube": "Luc's YouTube channel - https://www.youtube.com/channel/UCbcxHiowf0TSNKn3xVpGTiQ"
+    }
+  },
+  "exchanges": {
+    "binance": {
+      "url": "https://www.binance.com/trade.html?symbol=",
+      "divider": "_",
+      "coinigy_id": "bina",
+      "tradingview_id": "BINANCE",
+      "reverse_pair": false,
+      "caps": true,
+      "status_page": "https://support.binance.com/hc/en-us/sections/115000106672-New-Listings",
+      "triggers": [
+        "BINANCE",
+        "BINA",
+        "BANANENCE",
+        "BANANA",
+        ":BANANA:",
+        ":BINANCE:"
+      ]
+    },
+    "bittrex": {
+      "url": "https://bittrex.com/Market/Index?MarketName=",
+      "divider": "-",
+      "coinigy_id": "btrx",
+      "tradingview_id": "BITTREX",
+      "reverse_pair": true,
+      "caps": false,
+      "status_page": "https://www.bittrex.com/status",
+      "triggers": [
+        "BTRX",
+        "BITTREX",
+        "BUTTREX",
+        "SHITTREX",
+        ":BITTREX:"
+      ]
+    },
+    "cryptopia": {
+      "url": "https://www.cryptopia.co.nz/Exchange?market=",
+      "divider": "_",
+      "coinigy_id": "cpia",
+      "tradingview_id": "",
+      "reverse_pair": false,
+      "caps": false,
+      "status_page": "",
+      "triggers": [
+        "CPIA",
+        "CRYPTOPIA",
+        "CRYPTOP",
+        ":CRYPTOPIA:"
+      ]
+    },
+    "gate": {
+      "url": "https://gate.io/trade/",
+      "divider": "_",
+      "coinigy_id": "gate",
+      "tradingview_id": "",
+      "reverse_pair": false,
+      "caps": false,
+      "status_page": "",
+      "triggers": [
+        "GATE",
+        "GATEIO",
+        ":GATEIO:"
+      ]
+    },
+    "hitbtc": {
+      "url": "https://hitbtc.com/exchange/",
+      "divider": "-to-",
+      "coinigy_id": "hitb",
+      "tradingview_id": "HITBTC",
+      "reverse_pair": false,
+      "caps": false,
+      "status_page": "",
+      "triggers": [
+        "HITBIT",
+        "HITBTC",
+        "HITB",
+        ":HITBIT:"
+      ]
+    },
+    "kucoin": {
+      "url": "https://www.kucoin.com/#/trade.pro/",
+      "divider": "-",
+      "coinigy_id": "",
+      "tradingview_id": "",
+      "reverse_pair": false,
+      "caps": true,
+      "status_page": "",
+      "triggers": [
+        "KUCOIN",
+        "KU",
+        ":KUCOIN:"
+      ]
+    },
+    "liqui": {
+      "url": "https://liqui.io/#/exchange/",
+      "divider": "_",
+      "coinigy_id": "liqu",
+      "tradingview_id": "",
+      "reverse_pair": false,
+      "caps": true,
+      "status_page": "",
+      "triggers": [
+        "LIQUI",
+        "LIQU",
+        "LIQ",
+        ":LIQUI:"
+      ]
     }
   }
 }
