@@ -97,8 +97,8 @@ var self = module.exports = {
         } else if (mainCommand !== undefined) {
             if (debugging) {
                 console.log("Finding message for command in list");
-                response += COMMANDS_ENABLED_FLAT[mainCommand];
             }
+            response += COMMANDS_ENABLED_FLAT[mainCommand];
         } else {
             response += "BLEEP, BLOOP. I didn't understand that command.\n\n" + HELP_RESPONSE;
         }
