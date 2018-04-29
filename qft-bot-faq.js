@@ -1,13 +1,8 @@
 const fs = require('fs');
 const faqHandler = require('./faq-handler.js');
 const coinStatusHandler = require('./coinstatus-handler.js');
-//const CONFIGURATION = JSON.parse(fs.readFileSync('./configuration-local.json', 'utf8'));
 const CONFIGURATION = require('./configuration-local.json');
-console.log(CONFIGURATION);
-
 const bot_token = process.env.SLACK_BOT_TOKEN || CONFIGURATION['bot-token'] || '';
-debugging = process.env.DEBUGGING || CONFIGURATION['debugging'] || false;
-let superUsers = process.env.SUPER_USERS || CONFIGURATION['super-users'];
 
 RtmClient = require('@slack/client').RtmClient;
 RTM_EVENTS = require('@slack/client').RTM_EVENTS;
@@ -27,6 +22,8 @@ db = new sqlite3.Database('../qft-bot-delisted-scraper/qft-bot-delisted-scraper.
 triggerWords = JSON.parse(fs.readFileSync('./trigger-words.json', 'utf8'));
 //let superUsers = JSON.parse(super_users);
 botChannel = 'general';
+debugging = process.env.DEBUGGING || CONFIGURATION['debugging'] || false;
+superUsers = process.env.SUPER_USERS || CONFIGURATION['super-users'];
 
 TOPICS = Object.keys(triggerWords.public_commands);
 PROTECTED_COMMANDS = Object.keys(triggerWords.magic_commands);
