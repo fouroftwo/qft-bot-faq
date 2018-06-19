@@ -3,6 +3,45 @@ const faqHandler = require('./faq-handler.js');
 const coinStatusHandler = require('./coinstatus-handler.js');
 const CONFIGURATION = require('./configuration-local.json');
 const bot_token = process.env.SLACK_BOT_TOKEN || CONFIGURATION['bot-token'] || '';
+process.on('SIGUSR1', function() {
+    let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> ''";
+    let delisterMessage = "*COIN SCRAPER REPORT*\n";
+    let coinStatuses = {};
+    try {
+        db.all(delisterSql, function (err, rows) {
+            //console.log(rows);
+            rows.forEach(function (row) {
+                let coinStatus = {};
+                coinStatus.exchange = row.exchange;
+                coinStatus.coin = row.currency;
+                coinStatus.lastSynced = row.last_synced;
+                coinStatus.notice = row.notice;
+                coinStatuses[row.currency] = coinStatus;
+                //console.log("Exchange: " + row.exchange + ", last synced: " + row.last_synced + ", notice: " + row.notice);
+            });
+            //console.log(Object.keys(coinStatuses));
+            let coinStatusesCoins = Object.keys(coinStatuses );
+            for(let i = 0; i < coinStatusesCoins.length; i++) {
+                if(coinStatuses[coinStatusesCoins[i]].exchange == 1) {
+                    delisterMessage += "Exchange: BITTREX\n";
+                } else {
+                    delisterMessage += "Exchange: Binance\n";
+                }
+                delisterMessage += "Coin: " + coinStatuses[coinStatusesCoins[i]].coin + "\n";
+                if(coinStatuseses[coinStatusesCoins[i]].notice.toLowerCase().indexOf("delisted") === -1) {
+                    delisterMessage += "_Notice: " + coinStatuses[coinStatusesCoins[i]].notice + "_\n";
+                } else {
+                    delisterMessage += "Notice: " + coinStatuses[coinStatusesCoins[i]].notice + "\n";
+                }
+                delisterMessage += "Last synced: " + coinStatuses[coinStatusesCoins[i]].lastSynced + "\n\n";
+            }
+            rtm.sendMessage(delisterMessage, testChannel);
+            db.run("UPDATE statuses SET reported_in_slack = ? WHERE reported_in_slack IS NOT 1 AND notice <> ''", 1);
+        });
+    } catch(error) {
+
+    }
+});
 
 RtmClient = require('@slack/client').RtmClient;
 RTM_EVENTS = require('@slack/client').RTM_EVENTS;
@@ -22,6 +61,7 @@ db = new sqlite3.Database('../qft-bot-delisted-scraper/qft-bot-delisted-scraper.
 triggerWords = JSON.parse(fs.readFileSync('./trigger-words.json', 'utf8'));
 //let superUsers = JSON.parse(super_users);
 botChannel = 'general';
+testChannel = 'test_lab';
 debugging = process.env.DEBUGGING || CONFIGURATION['debugging'] || false;
 superUsers = process.env.SUPER_USERS || CONFIGURATION['super-users'];
 
@@ -80,7 +120,7 @@ function start() {
 
 // you need to wait for the client to fully connect before you can send messages
     rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
-        rtm.sendMessage("Bot is online!", botChannel);
+        //rtm.sendMessage("Bot is online!", botChannel);
     });
 
     rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
