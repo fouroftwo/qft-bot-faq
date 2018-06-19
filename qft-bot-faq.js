@@ -1,7 +1,9 @@
+const scriptPath = '/home/user2/qft-bot-faq';
+const scraperPath = '/home/user2/qft-bot-delisted-scraper';
 const fs = require('fs');
 const faqHandler = require('./faq-handler.js');
-const coinStatusHandler = require('./coinstatus-handler.js');
-const CONFIGURATION = require('./configuration-local.json');
+const coinStatusHandler = require(scriptPath + '/coinstatus-handler.js');
+const CONFIGURATION = require(scriptPath + '/configuration-local.json');
 const bot_token = process.env.SLACK_BOT_TOKEN || CONFIGURATION['bot-token'] || '';
 process.on('SIGUSR1', function() {
     let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> ''";
@@ -51,14 +53,14 @@ WebClient = require('@slack/client').WebClient;
 web = new WebClient(bot_token);
 
 sqlite3 = require('sqlite3').verbose();
-db = new sqlite3.Database('../qft-bot-delisted-scraper/qft-bot-delisted-scraper.sqlite', (err) => {
+db = new sqlite3.Database(scraperPath + '/qft-bot-delisted-scraper.sqlite', (err) => {
     if (err) {
         return console.log(err.message);
     }
     console.log('Database connected');
     start();
 });
-triggerWords = JSON.parse(fs.readFileSync('./trigger-words.json', 'utf8'));
+triggerWords = JSON.parse(fs.readFileSync(scriptPath + '/trigger-words.json', 'utf8'));
 //let superUsers = JSON.parse(super_users);
 botChannel = 'general';
 testChannel = 'test_lab';
