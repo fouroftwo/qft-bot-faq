@@ -1,10 +1,11 @@
-const scriptPath = '/home/user2/qft-bot-faq';
-const scraperPath = '/home/user2/qft-bot-delisted-scraper';
 const fs = require('fs');
 const faqHandler = require('./faq-handler.js');
-const coinStatusHandler = require(scriptPath + '/coinstatus-handler.js');
-const CONFIGURATION = require(scriptPath + '/configuration-local.json');
+const CONFIGURATION = require('./configuration-local.json');
 const bot_token = process.env.SLACK_BOT_TOKEN || CONFIGURATION['bot-token'] || '';
+const scriptPath = CONFIGURATION['script-path'] || './';
+const scraperPath = CONFIGURATION['scraper-path'] || '../qft-bot-delisted-scraper/';
+const coinStatusHandler = require(scriptPath + 'coinstatus-handler.js');
+const botChannel = CONFIGURATION['bot-channel'] || 'G854US8MR';
 process.on('SIGUSR1', function() {
     let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> ''";
     let delisterMessage = "*COIN SCRAPER REPORT*\n";
@@ -12,10 +13,14 @@ process.on('SIGUSR1', function() {
     try {
         db.all(delisterSql, function (err, rows) {
             //console.log(rows);
+            if(rows.length == 0) {
+                return;
+            }
             rows.forEach(function (row) {
                 let coinStatus = {};
                 coinStatus.exchange = row.exchange;
                 coinStatus.coin = row.currency;
+                coinStatus.marketName = row.market_name;
                 coinStatus.lastSynced = row.last_synced;
                 coinStatus.notice = row.notice;
                 coinStatuses[row.currency] = coinStatus;
@@ -29,15 +34,19 @@ process.on('SIGUSR1', function() {
                 } else {
                     delisterMessage += "Exchange: Binance\n";
                 }
-                delisterMessage += "Coin: " + coinStatuses[coinStatusesCoins[i]].coin + "\n";
-                if(coinStatuseses[coinStatusesCoins[i]].notice.toLowerCase().indexOf("delisted") === -1) {
-                    delisterMessage += "_Notice: " + coinStatuses[coinStatusesCoins[i]].notice + "_\n";
+                if(coinStatuses[coinStatusesCoins[i]].coin) {
+                    delisterMessage += "Coin: " + coinStatuses[coinStatusesCoins[i]].coin + "\n";
                 } else {
+                    delisterMessage += "Coin: " + coinStatuses[coinStatusesCoins[i]].marketName + "\n";
+                }
+                if(coinStatuses[coinStatusesCoins[i]].notice.toLowerCase().indexOf("delisted") === -1) {
                     delisterMessage += "Notice: " + coinStatuses[coinStatusesCoins[i]].notice + "\n";
+                } else {
+                    delisterMessage += "_Notice: " + coinStatuses[coinStatusesCoins[i]].notice + "_\n";
                 }
                 delisterMessage += "Last synced: " + coinStatuses[coinStatusesCoins[i]].lastSynced + "\n\n";
             }
-            rtm.sendMessage(delisterMessage, testChannel);
+            rtm.sendMessage(delisterMessage, botChannel);
             db.run("UPDATE statuses SET reported_in_slack = ? WHERE reported_in_slack IS NOT 1 AND notice <> ''", 1);
         });
     } catch(error) {
@@ -60,10 +69,8 @@ db = new sqlite3.Database(scraperPath + '/qft-bot-delisted-scraper.sqlite', (err
     console.log('Database connected');
     start();
 });
-triggerWords = JSON.parse(fs.readFileSync(scriptPath + '/trigger-words.json', 'utf8'));
+triggerWords = JSON.parse(fs.readFileSync(scriptPath + 'trigger-words.json', 'utf8'));
 //let superUsers = JSON.parse(super_users);
-botChannel = 'general';
-testChannel = 'test_lab';
 debugging = process.env.DEBUGGING || CONFIGURATION['debugging'] || false;
 superUsers = process.env.SUPER_USERS || CONFIGURATION['super-users'];
 
@@ -114,7 +121,7 @@ function start() {
                 if (debugging) {
                     console.log('Found ' + c.name);
                 }
-                botChannel = c.id;
+                //botChannel = c.id;
             }
         }
         console.log(`Logged in as ${rtmStartData.self.name} of team ${rtmStartData.team.name} in channel ${botChannel}`);
@@ -122,7 +129,7 @@ function start() {
 
 // you need to wait for the client to fully connect before you can send messages
     rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
-        //rtm.sendMessage("Bot is online!", botChannel);
+        rtm.sendMessage("Bot is online!", botChannel);
     });
 
     rtm.on(RTM_EVENTS.MESSAGE, function handleRtmMessage(message) {
