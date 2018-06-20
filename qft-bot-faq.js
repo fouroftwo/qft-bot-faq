@@ -7,51 +7,7 @@ const scraperPath = CONFIGURATION['scraper-path'] || '../qft-bot-delisted-scrape
 const coinStatusHandler = require(scriptPath + 'coinstatus-handler.js');
 const botChannel = CONFIGURATION['bot-channel'] || 'G854US8MR';
 process.on('SIGUSR1', function() {
-    let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> ''";
-    let delisterMessage = "*COIN SCRAPER REPORT*\n";
-    let coinStatuses = {};
-    try {
-        db.all(delisterSql, function (err, rows) {
-            //console.log(rows);
-            if(rows.length == 0) {
-                return;
-            }
-            rows.forEach(function (row) {
-                let coinStatus = {};
-                coinStatus.exchange = row.exchange;
-                coinStatus.coin = row.currency;
-                coinStatus.marketName = row.market_name;
-                coinStatus.lastSynced = row.last_synced;
-                coinStatus.notice = row.notice;
-                coinStatuses[row.currency] = coinStatus;
-                //console.log("Exchange: " + row.exchange + ", last synced: " + row.last_synced + ", notice: " + row.notice);
-            });
-            //console.log(Object.keys(coinStatuses));
-            let coinStatusesCoins = Object.keys(coinStatuses );
-            for(let i = 0; i < coinStatusesCoins.length; i++) {
-                if(coinStatuses[coinStatusesCoins[i]].exchange == 1) {
-                    delisterMessage += "Exchange: BITTREX\n";
-                } else {
-                    delisterMessage += "Exchange: Binance\n";
-                }
-                if(coinStatuses[coinStatusesCoins[i]].coin) {
-                    delisterMessage += "Coin: " + coinStatuses[coinStatusesCoins[i]].coin + "\n";
-                } else {
-                    delisterMessage += "Coin: " + coinStatuses[coinStatusesCoins[i]].marketName + "\n";
-                }
-                if(coinStatuses[coinStatusesCoins[i]].notice.toLowerCase().indexOf("delisted") === -1) {
-                    delisterMessage += "Notice: " + coinStatuses[coinStatusesCoins[i]].notice + "\n";
-                } else {
-                    delisterMessage += "_Notice: " + coinStatuses[coinStatusesCoins[i]].notice + "_\n";
-                }
-                delisterMessage += "Last synced: " + coinStatuses[coinStatusesCoins[i]].lastSynced + "\n\n";
-            }
-            rtm.sendMessage(delisterMessage, botChannel);
-            db.run("UPDATE statuses SET reported_in_slack = ? WHERE reported_in_slack IS NOT 1 AND notice <> ''", 1);
-        });
-    } catch(error) {
-
-    }
+    coinStatusHandler.sendCoinScraperReport(botChannel, coinStatusHandler.CONTINUOUS_REPORT);
 });
 
 RtmClient = require('@slack/client').RtmClient;
