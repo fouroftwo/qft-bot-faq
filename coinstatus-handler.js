@@ -7,11 +7,11 @@ var self = module.exports = {
         let exchange = 0;
         let responseMessage = "";
         let originalMessage = message.text;
-        console.log(originalMessage);
-        console.log(message.text.substr(6, message.text.length));
+        //console.log(originalMessage);
+        //console.log(message.text.substr(6, message.text.length));
         let theMessage = message.text.substr(6, message.text.length);
         theMessage = theMessage.toUpperCase();
-        console.log(theMessage);
+        //console.log(theMessage);
 
         let splitMessage = [];
         let sp = theMessage.split('/');
@@ -211,7 +211,10 @@ var self = module.exports = {
                     }
                     delisterMessage += "_Scraped: " + coinStatuses[coinStatusesCoins[i]].lastSynced + "_\n\n";
                 }
-                rtm.sendMessage(delisterMessage, botChannel);
+                let responseMessageSplit = delisterMessage.match(/(.|[\r\n]){1,3999}/g);
+                for(let j = 0; j < responseMessageSplit.length; j++) {
+                    rtm.sendMessage(responseMessageSplit[j], botChannel);
+                }
             });
         } catch(error) {
             console.log(error);
