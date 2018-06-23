@@ -228,7 +228,7 @@ var self = module.exports = {
                 for(let j = 0; j < responseMessageSplit.length; j++) {
                     rtm.sendMessage(responseMessageSplit[j], botChannel);
                 }
-                delisterSql = "UPDATE statuses SET reported_in_slack = 1 WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—' ORDER BY exchange";
+                delisterSql = "UPDATE statuses SET reported_in_slack = 1 WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—'";
                 db.run(delisterSql);
             });
         } catch(error) {
