@@ -202,13 +202,13 @@ var self = module.exports = {
                 for(let i = 0; i < coinStatusesCoins.length; i++) {
                     switch(coinStatuses[coinStatusesCoins[i]].exchange) {
                         case 1:
-                            delisterMessage = ":bittrex: | ";
+                            delisterMessage += ":bittrex: | ";
                             break;
                         case 2:
-                            delisterMessage = ":binance: | ";
+                            delisterMessage += ":binance: | ";
                             break;
                         case 3:
-                            delisterMessage = ":hitbit: | ";
+                            delisterMessage += ":hitbit: | ";
                             break;
                     }
 
