@@ -136,10 +136,17 @@ var self = module.exports = {
                     return;
                 }
 
-                if(exchange === 0) {
-                    responseMessage = ":bittrex: | ";
-                } else {
-                    responseMessage = ":binance: | ";
+                switch(exchange) {
+                    case 0:
+                        responseMessage = ":bittrex: | ";
+                        break;
+                    case 1:
+                        responseMessage = ":binance: | ";
+                        break;
+                    case 2:
+                        responseMessage = ":hitbit: | ";
+                        break;
+
                 }
 
                 if (skip) {
