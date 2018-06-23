@@ -137,16 +137,15 @@ var self = module.exports = {
                 }
 
                 switch(exchange) {
-                    case 0:
+                    case 1:
                         responseMessage = ":bittrex: | ";
                         break;
-                    case 1:
+                    case 2:
                         responseMessage = ":binance: | ";
                         break;
-                    case 2:
+                    case 3:
                         responseMessage = ":hitbit: | ";
                         break;
-
                 }
 
                 if (skip) {
@@ -175,10 +174,10 @@ var self = module.exports = {
     },
 
     sendCoinScraperReport: function(botChannel, type) {
-        let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> ''";
+        let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—'";
         let delisterMessage = "*LATEST COIN REPORT*\n";
         if(type === 1) {
-            delisterSql = "SELECT * FROM statuses WHERE notice <> ''";
+            delisterSql = "SELECT * FROM statuses WHERE notice <> '' AND notice <> '—'";
             delisterMessage = "*COMPLETE COIN SCRAPER REPORT*\n";
         }
         let coinStatuses = {};
@@ -201,11 +200,18 @@ var self = module.exports = {
                 //console.log(Object.keys(coinStatuses));
                 let coinStatusesCoins = Object.keys(coinStatuses );
                 for(let i = 0; i < coinStatusesCoins.length; i++) {
-                    if(coinStatuses[coinStatusesCoins[i]].exchange == 1) {
-                        delisterMessage += ":bittrex: | ";
-                    } else {
-                        delisterMessage += ":binance: | ";
+                    switch(coinStatuses[coinStatusesCoins[i]].exchange) {
+                        case 1:
+                            delisterMessage = ":bittrex: | ";
+                            break;
+                        case 2:
+                            delisterMessage = ":binance: | ";
+                            break;
+                        case 3:
+                            delisterMessage = ":hitbit: | ";
+                            break;
                     }
+
                     if(coinStatuses[coinStatusesCoins[i]].coin) {
                         delisterMessage += coinStatuses[coinStatusesCoins[i]].coin + "\n";
                     } else {
