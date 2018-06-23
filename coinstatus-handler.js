@@ -174,10 +174,10 @@ var self = module.exports = {
     },
 
     sendCoinScraperReport: function(botChannel, type) {
-        let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—'";
+        let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—' ORDER BY exchange";
         let delisterMessage = "*LATEST COIN REPORT*\n";
         if(type === 1) {
-            delisterSql = "SELECT * FROM statuses WHERE notice <> '' AND notice <> '—'";
+            delisterSql = "SELECT * FROM statuses WHERE notice <> '' AND notice <> '—' ORDER BY exchange";
             delisterMessage = "*COMPLETE COIN SCRAPER REPORT*\n";
         }
         let coinStatuses = {};
