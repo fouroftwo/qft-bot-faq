@@ -174,10 +174,10 @@ var self = module.exports = {
     },
 
     sendCoinScraperReport: function(botChannel, type) {
-        let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—' ORDER BY exchange";
+        let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—' AND notice <> 'Active' ORDER BY exchange";
         let delisterMessage = "*LATEST COIN REPORT*\n";
         if(type === 1) {
-            delisterSql = "SELECT * FROM statuses WHERE notice <> '' AND notice <> '—' ORDER BY exchange";
+            delisterSql = "SELECT * FROM statuses WHERE notice <> '' AND notice <> '—' AND notice <> 'Active' ORDER BY exchange";
             delisterMessage = "*COMPLETE COIN SCRAPER REPORT*\n";
         }
         let coinStatuses = {};
@@ -210,6 +210,9 @@ var self = module.exports = {
                         case 3:
                             delisterMessage += ":hitbit: | ";
                             break;
+                        case 4:
+                            delisterMessage += ":cryptopia: | ";
+                            break;
                     }
 
                     if(coinStatuses[coinStatusesCoins[i]].coin) {
@@ -217,7 +220,7 @@ var self = module.exports = {
                     } else {
                         delisterMessage += coinStatuses[coinStatusesCoins[i]].marketName + "\n";
                     }
-                    if(coinStatuses[coinStatusesCoins[i]].notice.toLowerCase().indexOf("delisted") !== -1 || coinStatuses[coinStatusesCoins[i]].notice.toLowerCase().indexOf("remove") !== -1) {
+                    if(coinStatuses[coinStatusesCoins[i]].notice.toLowerCase().indexOf("delist") !== -1 || coinStatuses[coinStatusesCoins[i]].notice.toLowerCase().indexOf("remove") !== -1) {
                         delisterMessage += "*Notice: " + coinStatuses[coinStatusesCoins[i]].notice + "*\n";
                     } else {
                         delisterMessage += "Notice: " + coinStatuses[coinStatusesCoins[i]].notice + "\n";
@@ -228,7 +231,12 @@ var self = module.exports = {
                 for(let j = 0; j < responseMessageSplit.length; j++) {
                     rtm.sendMessage(responseMessageSplit[j], botChannel);
                 }
-                delisterSql = "UPDATE statuses SET reported_in_slack = 1 WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—'";
+                //delisterSql = "UPDATE statuses SET reported_in_slack = 1 WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—'";
+                delisterSql = 'UPDATE statuses ' +
+                    'SET reported_in_slack = 1 ' +
+                    'WHERE reported_in_slack ' +
+                    'IS NOT 1 ' +
+                    'AND notice <> "" AND notice <> "Active" AND notice <> "—"';
                 db.run(delisterSql);
             });
         } catch(error) {
