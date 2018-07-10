@@ -174,6 +174,7 @@ var self = module.exports = {
     },
 
     sendCoinScraperReport: function(botChannel, type) {
+        console.log('Starting scrape report');
         let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—' AND notice <> 'Active' ORDER BY exchange";
         let delisterMessage = "*LATEST COIN REPORT*\n";
         if(type === 1) {
@@ -184,6 +185,9 @@ var self = module.exports = {
         try {
             db.all(delisterSql, function (err, rows) {
                 //console.log(rows);
+                if(rows == undefined) {
+                    return;
+                }
                 if(rows.length == 0) {
                     return;
                 }

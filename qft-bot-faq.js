@@ -1,3 +1,4 @@
+require('./console-file');
 const fs = require('fs');
 const faqHandler = require('./faq-handler.js');
 const CONFIGURATION = require('./configuration-local.json');
