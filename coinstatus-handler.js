@@ -1,7 +1,10 @@
+const sqlite3 = require('sqlite3').verbose();
 const CONTINUOUS_REPORT = 0;
 const FULL_REPORT = 1;
 const CONFIGURATION = require('./configuration-local.json');
+const scraperPath = CONFIGURATION['scraper-path'] || '../qft-bot-delisted-scraper/';
 const botChannel = CONFIGURATION['bot-channel'] || 'G854US8MR';
+let db = '';
 var self = module.exports = {
     processCoinStatus: function(message) {
         let exchange = 0;
@@ -31,7 +34,12 @@ var self = module.exports = {
             console.log(error);
         }
 
-
+	db = new sqlite3.Database(scraperPath + '/qft-bot-delisted-scraper.sqlite', (err) => {
+	    if (err) {
+		return console.log(err.message);
+	    }
+	    console.log('Database connected');
+	});
         try {
             let foundExchange = [];
             let foundExchangeAlias = [];
@@ -146,6 +154,9 @@ var self = module.exports = {
                     case 3:
                         responseMessage = ":hitbit: | ";
                         break;
+                    case 4:
+                        responseMessage = ":cryptopia: | ";
+                        break;
                 }
 
                 if (skip) {
@@ -175,10 +186,16 @@ var self = module.exports = {
 
     sendCoinScraperReport: function(botChannel, type) {
         console.log('Starting scrape report');
-        let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—' AND notice <> 'Active' ORDER BY exchange";
+	db = new sqlite3.Database(scraperPath + '/qft-bot-delisted-scraper.sqlite', (err) => {
+	    if (err) {
+		return console.log(err.message);
+	    }
+	    console.log('Database connected');
+	});
+        let delisterSql = "SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—' AND notice <> 'Active - ' AND notice <> 'Active' ORDER BY exchange";
         let delisterMessage = "*LATEST COIN REPORT*\n";
         if(type === 1) {
-            delisterSql = "SELECT * FROM statuses WHERE notice <> '' AND notice <> '—' AND notice <> 'Active' ORDER BY exchange";
+            delisterSql = "SELECT * FROM statuses WHERE notice <> '' AND notice <> '—' AND notice <> 'Active - ' ORDER BY exchange";
             delisterMessage = "*COMPLETE COIN SCRAPER REPORT*\n";
         }
         let coinStatuses = {};
@@ -235,12 +252,11 @@ var self = module.exports = {
                 for(let j = 0; j < responseMessageSplit.length; j++) {
                     rtm.sendMessage(responseMessageSplit[j], botChannel);
                 }
-                //delisterSql = "UPDATE statuses SET reported_in_slack = 1 WHERE reported_in_slack IS NOT 1 AND notice <> '' AND notice <> '—'";
                 delisterSql = 'UPDATE statuses ' +
                     'SET reported_in_slack = 1 ' +
-                    'WHERE reported_in_slack ' +
-                    'IS NOT 1 ' +
-                    'AND notice <> "" AND notice <> "Active" AND notice <> "—"';
+                    'WHERE reported_in_slack IS NOT 1 ' +
+                    'AND notice <> "" AND notice <> "—" AND notice <> "Active - " AND notice <> "Active"';
+		//console.log(delisterSql);
                 db.run(delisterSql);
             });
         } catch(error) {
