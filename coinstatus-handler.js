@@ -259,6 +259,20 @@ var self = module.exports = {
 					else {
 						delisterMessage += 'Notice: ' + coinStatuses[coinStatusesCoins[i]].notice + '\n'
 					}
+
+					switch (coinStatuses[coinStatusesCoins[i]].exchange) {
+						case 1:
+							delisterMessage += 'https://www.bittrex.com/status\n'
+							break
+						case 2:
+							break
+						case 3:
+							delisterMessage += 'https://hitbtc.com/system-health\n'
+							break
+						case 4:
+							delisterMessage += 'https://www.cryptopia.co.nz/CoinInfo\n'
+							break
+					}
 					delisterMessage += '_Scraped: ' + coinStatuses[coinStatusesCoins[i]].lastSynced + '_\n\n'
 				}
 				let responseMessageSplit = delisterMessage.match(/(.|[\r\n]){1,3999}/g)
