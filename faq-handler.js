@@ -118,6 +118,7 @@ var self = module.exports = {
 				if (debugging) {
 					console.log('This user is a madmin, passing message along...')
 				}
+				stats(commandingUser + ";" + taggedUser + ";" + mainCommand + ";" + compoundCommand);
 				module.exports.sendDM(taggedUser, response)
 			}
 			else {
@@ -130,6 +131,7 @@ var self = module.exports = {
 			if (prepend) {
 				response = HELP_PUBLIC_CHAT_RESPONSE + response
 			}
+			stats(commandingUser + ";" + taggedUser + ";" + mainCommand + ";" + compoundCommand);
 			module.exports.sendDM(channel, response)
 		}
 	},
