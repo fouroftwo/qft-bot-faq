@@ -7,8 +7,9 @@ const bot_token = process.env.SLACK_BOT_TOKEN || CONFIGURATION['bot-token'] || '
 const scriptPath = CONFIGURATION['script-path'] || './'
 const coinStatusHandler = require(scriptPath + 'coinstatus-handler.js')
 const botChannel = CONFIGURATION['bot-channel'] || 'G854US8MR'
+const reportChannel = CONFIGURATION['report-channel'] || 'G854US8MR'
 process.on('SIGUSR1', function () {
-	coinStatusHandler.sendCoinScraperReport(botChannel, coinStatusHandler.CONTINUOUS_REPORT)
+	coinStatusHandler.sendCoinScraperReport(reportChannel, coinStatusHandler.CONTINUOUS_REPORT)
 	return
 })
 
