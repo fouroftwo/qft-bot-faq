@@ -1,4 +1,5 @@
 require('./console-file')
+require('./stats-file')
 const fs = require('fs')
 const faqHandler = require('./faq-handler.js')
 const CONFIGURATION = require('./configuration-local.json')
@@ -20,7 +21,6 @@ web = new WebClient(bot_token)
 
 start()
 triggerWords = JSON.parse(fs.readFileSync(scriptPath + 'trigger-words.json', 'utf8'))
-//let superUsers = JSON.parse(super_users);
 debugging = process.env.DEBUGGING || CONFIGURATION['debugging'] || false
 superUsers = process.env.SUPER_USERS || CONFIGURATION['super-users']
 
