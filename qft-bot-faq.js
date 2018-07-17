@@ -4,7 +4,6 @@ const faqHandler = require('./faq-handler.js')
 const CONFIGURATION = require('./configuration-local.json')
 const bot_token = process.env.SLACK_BOT_TOKEN || CONFIGURATION['bot-token'] || ''
 const scriptPath = CONFIGURATION['script-path'] || './'
-const scraperPath = CONFIGURATION['scraper-path'] || '../qft-bot-delisted-scraper/'
 const coinStatusHandler = require(scriptPath + 'coinstatus-handler.js')
 const botChannel = CONFIGURATION['bot-channel'] || 'G854US8MR'
 process.on('SIGUSR1', function () {
@@ -19,15 +18,6 @@ CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS
 WebClient = require('@slack/client').WebClient
 web = new WebClient(bot_token)
 
-/*
-sqlite3 = require('sqlite3').verbose();
-db = new sqlite3.Database(scraperPath + '/qft-bot-delisted-scraper.sqlite', (err) => {
-    if (err) {
-        return console.log(err.message);
-    }
-    console.log('Database connected');
-});
-*/
 start()
 triggerWords = JSON.parse(fs.readFileSync(scriptPath + 'trigger-words.json', 'utf8'))
 //let superUsers = JSON.parse(super_users);

@@ -25,6 +25,7 @@ var self = module.exports = {
 		catch (e) {
 			if (debugging) {
 				console.log('Error on matching channels.info with a channel')
+				console.log(e)
 			}
 		}
 	},
@@ -54,6 +55,9 @@ var self = module.exports = {
 			}
 		}
 		catch (e) {
+			if (debugging) {
+				console.log(e)
+			}
 		}
 
 		try {
@@ -65,6 +69,9 @@ var self = module.exports = {
 			}
 		}
 		catch (e) {
+			if (debugging) {
+				console.log(e)
+			}
 		}
 
 		if (debugging) {
@@ -132,6 +139,7 @@ var self = module.exports = {
 			}
 			module.exports.sendDM(channel, response)
 		}
+		stats(commandingUser,message.text);
 	},
 
 	/**
@@ -145,8 +153,8 @@ var self = module.exports = {
 		web.im.open(channel, function (err, resp) {
 			if (debugging) {
 				console.log('sendDM()')
-				console.log(err)
-				console.log(resp)
+				console.log('Error:', err)
+				console.log('Response:', resp)
 			}
 			// Check `err` for any errors.
 			// `resp` is the parsed response from the api.

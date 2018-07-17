@@ -161,6 +161,9 @@ var self = module.exports = {
 					case 4:
 						responseMessage = ':cryptopia: | '
 						break
+					case 5:
+						responseMessage = ':kucoin: | '
+						break
 				}
 
 				if (skip) {
@@ -244,6 +247,9 @@ var self = module.exports = {
 						case 4:
 							delisterMessage += ':cryptopia: | '
 							break
+						case 5:
+							delisterMessage += ':kucoin: | '
+							break
 					}
 
 					if (coinStatuses[coinStatusesCoins[i]].coin) {
@@ -271,6 +277,9 @@ var self = module.exports = {
 							break
 						case 4:
 							delisterMessage += 'https://www.cryptopia.co.nz/CoinInfo\n'
+							break
+						case 5:
+							delisterMessage += 'https://www.kucoin.com/#/markets\n'
 							break
 					}
 					delisterMessage += '_Scraped: ' + coinStatuses[coinStatusesCoins[i]].lastSynced + '_\n\n'
