@@ -197,7 +197,7 @@ var self = module.exports = {
 	},
 
 	sendCoinScraperReport: function (botChannel, type) {
-		console.log('Starting scrape report')
+		console.log(new Date().toISOString(), 'Starting scrape report')
 		db = new sqlite3.Database(scraperPath + '/qft-bot-delisted-scraper.sqlite', (err) => {
 			if (err) {
 				return console.log(err.message)
