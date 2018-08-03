@@ -204,7 +204,7 @@ var self = module.exports = {
 			}
 			console.log('Database connected')
 		})
-		let delisterSql = 'SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice <> \'\' AND notice <> \'—\' AND notice <> \'Active - \' AND notice <> \'Active\' ORDER BY exchange'
+		let delisterSql = 'SELECT * FROM statuses WHERE reported_in_slack IS NOT 1 AND notice NOT LIKE \'\' AND notice NOT LIKE \'—\' AND notice NOT LIKE \'Active%\' AND notice NOT LIKE \'Technical maintenance%\' AND notice NOT LIKE \'Upgrading the system%\' AND notice NOT LIKE \'Investigating%\' ORDER BY exchange'
 		let delisterMessage = '*LATEST COIN REPORT*\n'
 		if (type === 1) {
 			delisterSql = 'SELECT * FROM statuses WHERE notice <> \'\' AND notice <> \'—\' AND notice <> \'Active - \' ORDER BY exchange'
